@@ -102,7 +102,10 @@ namespace cexpr {
       // Returns the maximum number of characters that can be held by a
       // string of this type.
       // The value returned is the template parameter M.
-      static constexpr size_type max_size ();
+      static constexpr size_type max_size ()
+      {
+        return M;
+      }
 
       // Returns the maximum number of characters that the string can
       // hold. The value returned is always the template parameter M.
