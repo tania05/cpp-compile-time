@@ -51,6 +51,22 @@ int main()
     cexpr_basic_string<char, 3> pb;
     pb.push_back('a');
     assert(strcmp(pb.data(), "a") == 0);
+    pb.push_back('c');
+    assert(strcmp(pb.data(), "ac") == 0);
+    pb.push_back('t');
+    assert(strcmp(pb.data(), "act") == 0);
+    //should fail
+    // pb.push_back('a');
+
+    //pop_back
+    pb.pop_back();
+    assert(strcmp(pb.data(), "ac") == 0);
+    pb.pop_back();
+    assert(strcmp(pb.data(), "a") == 0);
+    pb.pop_back();
+    assert(strcmp(pb.data(), "") == 0);
+    //should fail
+    // pb.pop_back();
 
     // cout << "EVERYTHING PASSES!" << endl << endl;
     // char buff[10] = {0};

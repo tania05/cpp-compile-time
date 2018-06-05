@@ -191,8 +191,6 @@ namespace expr {
           throw std::runtime_error("Size of the string is equal to its capacity.");
         }
         str[size()] = x;
-        std::cout << x << std::endl;
-        std::cout << str << std::endl;
       }
 
       // Erases the last character in the string.
@@ -204,7 +202,7 @@ namespace expr {
         {
           throw std::runtime_error("Size of the string is equal to its capacity.");          
         }
-        str[size()] = value_type(0);
+        str[size()-1] = value_type(0);
       }
       // Appends (i.e., adds to the end) to the string the
       // null-terminated string pointed to by s.
