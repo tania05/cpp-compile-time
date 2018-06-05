@@ -68,6 +68,27 @@ int main()
     //should fail
     // pb.pop_back();
 
+
+    //append
+    pb.append("aa");
+    assert(strcmp(pb.data(), "aa") == 0);
+    pb.append("a");
+    assert(strcmp(pb.data(), "aaa") == 0);
+    //should fail
+    // pb.append("a");
+    
+    pb.pop_back();
+    pb.pop_back();
+    pb.pop_back();
+
+    cexpr_basic_string<char, 4> other("thr");
+    pb.append(other);
+    assert(strcmp(pb.data(), other.data()) == 0);
+
+    //should fail
+    // cexpr_basic_string<char, 6> other2("Fail");
+    // other.append(other2);  
+    
     // cout << "EVERYTHING PASSES!" << endl << endl;
     // char buff[10] = {0};
     // constexpr size_t p = to_string(33, buff, 10, nullptr);

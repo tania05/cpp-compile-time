@@ -238,6 +238,8 @@ namespace expr {
           ++i;
         }
         str[i] = value_type(0);
+
+        return *this;
       }
 
       // Appends (i.e., adds to the end) to the string another
@@ -266,6 +268,8 @@ namespace expr {
           ++i;
         }
         str[i] = value_type(0);
+
+        return *this;
       }
 
       // Erases all of the characters in the string, yielding an empty
