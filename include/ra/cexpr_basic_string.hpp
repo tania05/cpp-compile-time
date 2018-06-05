@@ -7,7 +7,7 @@
 #include <iostream>
 
 namespace ra{
-namespace expr {
+namespace cexpr {
   template <class T, std::size_t M>
   class cexpr_basic_string
   {
