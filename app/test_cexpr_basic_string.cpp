@@ -68,7 +68,6 @@ int main()
     //should fail
     // pb.pop_back();
 
-
     //append
     pb.append("aa");
     assert(strcmp(pb.data(), "aa") == 0);

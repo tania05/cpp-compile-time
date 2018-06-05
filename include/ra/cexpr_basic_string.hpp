@@ -132,7 +132,7 @@ namespace expr {
       // null-terminated character array.
       // The program shall not alter the dummy null character stored
       // at data() + size().
-      pointer data ()
+      value_type * data ()
       {
         return str;
       }
