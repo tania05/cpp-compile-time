@@ -83,18 +83,20 @@ namespace expr {
       constexpr cexpr_basic_string ( const_iterator first ,
       const_iterator last )
       {
-        size_type size = 0;
+        size_type size_s = 0;
         while(first != last)
         {
-          if(size >= M)
+          if(size_s > M)
           {
+            // std::cout << *first << std::endl;
+            // std::cout << size_s << std::endl;
             throw std::runtime_error("String does not have sufficent capacity to hold string passed by start and end iterator");
           }
-          str[size] = *first;
+          str[size_s] = *first;
           ++first;
-          ++size;
+          ++size_s;
         }
-        str[size] = value_type(0);
+        str[size_s] = value_type(0);
       }
 
       // Returns the maximum number of characters that can be held by a
@@ -184,11 +186,13 @@ namespace expr {
       // an exception of type std::runtime_error is thrown.
       constexpr void push_back (const T& x )
       {
-        if(str.size() == M)
+        if(size() == M)
         {
           throw std::runtime_error("Size of the string is equal to its capacity.");
         }
-        str[str.size()+1] = x;
+        str[size()] = x;
+        std::cout << x << std::endl;
+        std::cout << str << std::endl;
       }
 
       // Erases the last character in the string.
@@ -196,11 +200,11 @@ namespace expr {
       // is thrown.
       constexpr void pop_back ()
       {
-        if(str.size() == 0)
+        if(size() == 0)
         {
           throw std::runtime_error("Size of the string is equal to its capacity.");          
         }
-        str[str.size()] = value_type(0);
+        str[size()] = value_type(0);
       }
       // Appends (i.e., adds to the end) to the string the
       // null-terminated string pointed to by s.
@@ -213,22 +217,22 @@ namespace expr {
       {
         //check for the string length of the input
         const_pointer v = s;
-        size_type size = 0;
+        size_type  size_s = 0;
         
         //stop before the dummy characterS
         while(*v != value_type(0))
         {
           ++v;
-          ++size;          
+          ++size_s;          
         }
 
-        if(str.size() + size > M)
+        if(size() + size_s > M)
         {
           throw std::runtime_error("Insufficient capacity in the string to hold new string with append");
         }
 
-        size_type i = str.size();
-        size_type size_s = 0;
+        size_s = 0;        
+        size_type i = size();
         while(s[size_s] != value_type(0))
         {
           str[i] = s[size_s];
@@ -249,12 +253,12 @@ namespace expr {
       const cexpr_basic_string < value_type , OtherM >& other )
       {
         const_pointer s = other.data();
-        if(str.size() + other.size() > M)
+        if(size() + other.size() > M)
         {
           throw std::runtime_error("Insufficient capacity in the string to hold new string with append");
         }
 
-        size_type i = str.size();
+        size_type i = size();
         size_type size_s = 0;
 
         while(*s != value_type(0))
@@ -308,7 +312,6 @@ namespace expr {
       {
         *end = &buffer[i];
       }
-
       return i;
     }
 }

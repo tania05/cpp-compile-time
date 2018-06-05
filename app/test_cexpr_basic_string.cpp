@@ -2,27 +2,61 @@
 
 #include "ra/cexpr_basic_string.hpp"
 #include <cassert>
+#include <typeinfo>
+#include <string.h>
 
 int main()
 {
     using namespace ra::expr;
     using namespace std;
-
+ 
     //creating empty string
     constexpr cexpr_basic_string<char, 3> x;
  
     // null terminated character array as input constructor
-    constexpr const char my_array[10] = "wor";
+    constexpr char my_array[10] = "wor";
+    
     constexpr cexpr_basic_string<char, 3> y(my_array);
 
     //check size of the string for all
-    // assert(x.size() == 0);
-    // assert(y.size() == char_traits<char>::length(x.data()));
+    assert(x.size() == char_traits<char>::length(x.data()));
+    assert(y.size() == char_traits<char>::length(y.data()));
     
-    cout << "EVERYTHING PASSES!" << endl << endl;
+    //check begin and end   
 
-    char buff[10] = {0};
+    //creating a string with the content specified by first and last
+    cexpr_basic_string<char, 3>::const_iterator first = y.begin();
+    cexpr_basic_string<char, 3>::const_iterator last = y.end();
+    cexpr_basic_string<char, 3> se(first, last);
+    assert(se.size() == char_traits<char>::length(se.data()));
+    assert(se.size() == y.size());
+    
+    const char * se_data1 = se.data();
+    const char * se_data2 = y.data();
+    
+    assert(strcmp(se_data1, se_data2) == 0);
 
-    constexpr int p = to_string(33, buff, 10, nullptr);
-    cout << p << endl;
+    //should fail
+    //cexpr_basic_string<char, 2> se2(first, last);
+    //check for references
+    cexpr_basic_string<char, 3>::const_reference cr1 =  y[1];
+    assert(cr1 == y.data()[1]);
+
+    cexpr_basic_string<char, 3>::reference cr2 = se[0];
+    assert(cr2 == se.data()[0]);
+
+
+    // pushback
+
+    cexpr_basic_string<char, 3> pb;
+    pb.push_back('a');
+    assert(strcmp(pb.data(), "a") == 0);
+
+    // cout << "EVERYTHING PASSES!" << endl << endl;
+    // char buff[10] = {0};
+    // constexpr size_t p = to_string(33, buff, 10, nullptr);
+    // cout << p << endl;
+
+
+
 }
