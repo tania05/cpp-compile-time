@@ -50,7 +50,7 @@ namespace fractal {
     }  
     
     template <std :: size_t W , std :: size_t H >    
-    constexpr ra::cexpr::cexpr_string<(W)*H+H+W> begin()
+    constexpr ra::cexpr::cexpr_string<(W)*H+H+W> mandelbrot_begin()
     {
         ra::cexpr::cexpr_string<(W)*H+H+W> str;
         str.push_back('P');
@@ -93,7 +93,7 @@ namespace fractal {
     // The string is a binary image encoded in the text-based bitmap PNM
     // format.
     template <std :: size_t W , std :: size_t H >
-    constexpr auto mandelbrot = begin<W,H>();
+    constexpr auto mandelbrot = mandelbrot_begin<W,H>();
 }
 }
 
