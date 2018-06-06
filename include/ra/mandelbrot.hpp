@@ -11,20 +11,21 @@ namespace fractal {
     constexpr bool is_member(std::pair<double, double> complex)
     {
         std::pair<double, double> c = complex;
-        double before_re = complex.first();
-        double before_img = complex.second();
+        double before_re = complex.first;
+        double before_img = complex.second;
         std::pair<double, double> before = complex;
         for(int i = 1; i<16; i++)
         {
             
-            if( before.first * before.first + before.second * before.second > 4)
+            if( before_re * before_re + before_img * before_img > 4)
             {
                 return false;
             }
-            double re = ((before.first * before.first) - before.second*before.second) + c.first;
-            double img = 2*before.first*before.second + c.second;
+            double re = ((before_re * before_re) - before_img*before_img) + c.first;
+            double img = 2*before_re*before_img + c.second;
 
-            before = std::make_pair(re, img);            
+            before_re = re;
+            before_img = img;            
         }
         return true;
     }
@@ -49,9 +50,22 @@ namespace fractal {
     }  
     
     template <std :: size_t W , std :: size_t H >    
-    constexpr ra::cexpr::cexpr_string<(W)*H+H+25> begin()
+    constexpr ra::cexpr::cexpr_string<(W)*H+H+W> begin()
     {
-        ra::cexpr::cexpr_string<(W)*H+H+25> str;
+        ra::cexpr::cexpr_string<(W)*H+H+W> str;
+        str.push_back('P');
+        str.push_back('1');
+        str.append(" ");
+        char w_buff[64] = {0};
+        char h_buff[64] = {0};
+        ra::cexpr::to_string(W, w_buff, 64, nullptr);
+        ra::cexpr::to_string(H, h_buff, 64, nullptr);
+        str.append(w_buff);
+        str.append(" ");
+        str.append(h_buff);
+        str.push_back('\n');
+        
+
         for(std::size_t i = 0; i< W; ++i)
         {
             for(std::size_t j = 0 ; j < H; ++j)
@@ -68,9 +82,10 @@ namespace fractal {
             }
             str.push_back('\n');
         }
-
         return str;
     }
+
+
 
     // A variable template for a string that represents an image depicting
     // the Mandelbrot set. The image has width W and height H.

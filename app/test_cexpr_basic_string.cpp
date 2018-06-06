@@ -17,7 +17,6 @@ int main()
     constexpr char my_array[10] = "wor";
     
     constexpr cexpr_basic_string<char, 3> y(my_array);
-
     //check size of the string for all
     assert(x.size() == char_traits<char>::length(x.data()));
     assert(y.size() == char_traits<char>::length(y.data()));
@@ -25,9 +24,11 @@ int main()
     //check begin and end   
 
     //creating a string with the content specified by first and last
-    cexpr_basic_string<char, 3>::const_iterator first = y.begin();
+    cexpr_basic_string<char, 3>::const_iterator first = y.begin(); 
     cexpr_basic_string<char, 3>::const_iterator last = y.end();
-    cexpr_basic_string<char, 3> se(first, last);
+    cexpr_basic_string<char, 3> se(first, last); 
+    // cout << se.size() << endl;
+    // cout << char_traits<char>::length(se.data()) << endl;    
     assert(se.size() == char_traits<char>::length(se.data()));
     assert(se.size() == y.size());
     
@@ -87,12 +88,9 @@ int main()
     //should fail
     // cexpr_basic_string<char, 6> other2("Fail");
     // other.append(other2);  
-    
     // cout << "EVERYTHING PASSES!" << endl << endl;
-    // char buff[10] = {0};
-    // constexpr size_t p = to_string(33, buff, 10, nullptr);
-    // cout << p << endl;
-
-
+    char buff[10] = {0};
+    size_t p = to_string(38, buff, 10, nullptr);
+    cout << buff << endl;
 
 }

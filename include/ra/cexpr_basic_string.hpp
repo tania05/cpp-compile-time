@@ -71,6 +71,8 @@ namespace cexpr {
             }
             str[i] = s[i];
             ++i;
+            //imcrement size
+            ++current_size;
           }
           str[i] = s[i];
       }
@@ -83,20 +85,24 @@ namespace cexpr {
       constexpr cexpr_basic_string ( const_iterator first ,
       const_iterator last )
       {
-        size_type size_s = 0;
+        // size_type size_s = 0;
         while(first != last)
         {
-          if(size_s > M)
+          if(current_size > M)
           {
             // std::cout << *first << std::endl;
             // std::cout << size_s << std::endl;
             throw std::runtime_error("String does not have sufficent capacity to hold string passed by start and end iterator");
           }
-          str[size_s] = *first;
+          str[current_size] = *first;
           ++first;
-          ++size_s;
+          // ++size_s;
+          //increment size
+          // std::cout << current_size << std::endl;
+          
+          ++current_size;
         }
-        str[size_s] = value_type(0);
+        str[current_size] = value_type(0);
       }
 
       // Returns the maximum number of characters that can be held by a
@@ -118,16 +124,17 @@ namespace cexpr {
       // dummy null character).
       constexpr size_type size () const
       {
-        const_pointer v = str;
-        size_type size = 0;
+        // const_pointer v = str;
+        // size_type size_s = 0;
         
-        //stop before the dummy characterS
-        while(*v != value_type(0))
-        {
-          ++v;
-          ++size;          
-        }
-        return size;
+        // //stop before the dummy characterS
+        // while(*v != value_type(0))
+        // {
+        //   ++v;
+        //   ++size_s;          
+        // }
+        // return size_s;
+        return current_size;
       }
 
       // Returns a pointer to the first character in the string.
@@ -161,11 +168,11 @@ namespace cexpr {
       // one-past-the-end character in the string.
       constexpr iterator end ()
       {
-        return str + size() + 1;
+        return str + size();
       }
       constexpr const_iterator end () const
       {
-        return str + size() + 1;        
+        return str + size();        
       }
 
       // Returns a reference to the i-th character in the string if i
@@ -189,11 +196,14 @@ namespace cexpr {
       // an exception of type std::runtime_error is thrown.
       constexpr void push_back (const T& x )
       {
-        if(size() == M)
+        auto string_size = size();
+        if(string_size == M)
         {
           throw std::runtime_error("Size of the string is equal to its capacity.");
         }
-        str[size()] = x;
+        str[string_size] = x;
+        ++current_size;
+        str[string_size+1] = value_type(0);
       }
 
       // Erases the last character in the string.
@@ -206,6 +216,7 @@ namespace cexpr {
           throw std::runtime_error("Size of the string is equal to its capacity.");          
         }
         str[size()-1] = value_type(0);
+        --current_size;        
       }
       // Appends (i.e., adds to the end) to the string the
       // null-terminated string pointed to by s.
@@ -239,6 +250,8 @@ namespace cexpr {
           str[i] = s[size_s];
           ++size_s;
           ++i;
+          //increment size
+          ++current_size;
         }
         str[i] = value_type(0);
 
@@ -269,6 +282,8 @@ namespace cexpr {
           str[i] = *s;
           ++s;
           ++i;
+          //increment size
+          ++current_size;
         }
         str[i] = value_type(0);
 
@@ -280,11 +295,12 @@ namespace cexpr {
       constexpr void clear ()
       {
         str[0] = value_type(0);
+        current_size = 0;
       }
     
     private:
       value_type str[M+1] = {0};
-      
+      size_type current_size = 0;
   };
   
   // Alias template
@@ -295,23 +311,33 @@ namespace cexpr {
     {
       std::size_t i = 0;
       char *p = buffer;
+      std::size_t number = n;
 
+      //find out the place to start putting the characters
       while(n != 0)
       {
         if( i >= size)
         {
           throw std::runtime_error("Buffer does not hold sufficent size to convert int to string.");
         }
-        //get the remainder
-        std::size_t r = n%10;
-        
-        //or add 48 since '0' is 48 is ASCII
-        p[i] = r + '0';
         n /= 10;
         ++i;
+        // std::cout << i << std::endl;
       }
-      
+
       p[i] = '\0';
+      
+      //38
+      while(i > 0)
+      {
+        --i;        
+        // std::cout << i << std::endl;        
+        // get the remainder
+        std::size_t r = number%10;
+        number /= 10;
+        // or add 48 since '0' is 48 is ASCII
+        p[i] = r + '0';
+      }
 
       if(end != nullptr)
       {
