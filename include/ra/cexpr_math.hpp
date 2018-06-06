@@ -69,7 +69,7 @@ namespace cexpr_math {
     }
     // T f = 3*(sin(x/3));
     // T s = 4*cube(sin(x/3));
-    return 3*(sin(x/3)) + 4*cube(sin(x/3));
+    return 3*(sin(x/3)) - 4*cube(sin(x/3));
     // std::cout << f << std::endl;
     // std::cout << s << std::endl;
     // return f + s;
@@ -98,8 +98,9 @@ namespace cexpr_math {
     if(cos(x) == 0)
     {
       throw std::overflow_error("cos x is 0");
-    } 
-    return sin(x)/cos(x);   
+    }  
+    //TODO test 
+    return (x < 0) ? (-sin(-x)/cos(x)) : sin(x)/cos(x);   
   }
 
   // Returns the square root of x.
@@ -110,14 +111,17 @@ namespace cexpr_math {
   template <class T >
   constexpr T sqrt (T x )
   {
+    if(x<0)
+    {
+      throw std::domain_error("X is negative.");
+    }
     T x0 = x;
-    T next = x0 - (sqr(x) - x0) / 2*x;
-    while(next - x <= std::numeric_limits<T>::epsilon())
+    T next = x0 - (sqr(x) - x0) / (2*x);
+    while(abs<T>(next - x) > std::numeric_limits<T>::epsilon())
     {
       x = next;
-      next = x0 - (sqr(x) - x0) / 2*x;     
+      next = x - (sqr(x) - x0) / (2*x);
     }
-
     return next;
   }
 }

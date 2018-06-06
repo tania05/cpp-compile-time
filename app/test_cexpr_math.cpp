@@ -17,9 +17,12 @@ int main()
     assert(abs<float>(-1.23) == (float)1.23);
     float p = boost::math::constants::pi<float>();
     // cout << p << endl;
-    float s = sin<float>((p));
+    float s = sin<float>(p);
     cout << s << endl;
-    assert(s == 1);
-
-    return 0;
+    // assert(s == 0);
+    cout << sqrt<float>(4) << endl;
+    cout << cos<float>(-p/2) << endl;
+    cout << cos<float>(-p/2) << endl;
+    cout << tan<float>(p/4) << endl;
+    return 0;   
 }
