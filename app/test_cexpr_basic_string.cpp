@@ -15,7 +15,7 @@ int main()
  
     // null terminated character array as input constructor
     constexpr char my_array[10] = "wor";
-    
+
     constexpr cexpr_basic_string<char, 3> y(my_array);
     //check size of the string for all
     assert(x.size() == char_traits<char>::length(x.data()));

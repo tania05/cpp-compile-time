@@ -3,7 +3,7 @@
 #define mandelbrot_hpp
 
 #include <utility>
-#include <ra/cexpr_basic_string.hpp>
+#include "ra/cexpr_basic_string.hpp"
 
 namespace ra{
 namespace fractal {

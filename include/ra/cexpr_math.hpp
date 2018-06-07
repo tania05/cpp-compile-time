@@ -60,16 +60,18 @@ namespace cexpr_math {
   template <class T >
   constexpr T sin (T x )
   {
-    x = mod(x, 2*pi<T>);
+    x = mod(x, (T)2*pi<T>);
     // std::cout << x << std::endl;    
-    if(x <= 0.000001)
+    if(x <= (T)0.000001)
     {
       // std::cout << " youa are here \n"; 
       return x;
     }
+    // std::cout << "Youa are here" << std::endl;
     // T f = 3*(sin(x/3));
     // T s = 4*cube(sin(x/3));
-    return 3*(sin(x/3)) - 4*cube(sin(x/3));
+    
+    return (T)( (T)3*(sin(x/(T)3)) ) - ((T)4*cube(sin(x/ (T)3) ))  ;
     // std::cout << f << std::endl;
     // std::cout << s << std::endl;
     // return f + s;
@@ -95,7 +97,7 @@ namespace cexpr_math {
   template <class T >
   constexpr T tan (T x )
   {
-    if(cos(x) == 0)
+    if(cos<T>(x) == 0)
     {
       throw std::overflow_error("cos x is 0");
     }  
@@ -114,6 +116,10 @@ namespace cexpr_math {
     if(x<0)
     {
       throw std::domain_error("X is negative.");
+    }
+    if(x == 0)
+    {
+     return 0; 
     }
     T x0 = x;
     T next = x0 - (sqr(x) - x0) / (2*x);

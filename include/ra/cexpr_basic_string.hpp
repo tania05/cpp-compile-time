@@ -60,7 +60,7 @@ namespace cexpr {
       // the character data provided, an exception of type
       // std::runtime_error is thrown.
       constexpr cexpr_basic_string (const value_type * s )
-      {
+      {   
           size_type i = 0;
 
           while(s[i] != value_type(0))
