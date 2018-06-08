@@ -1,3 +1,6 @@
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(cpp_compile_time LANGUAGES CXX)
 
@@ -37,6 +40,4 @@ endif()
 set (EXTRA_COMPILE_FLAGS "-fconstexpr-steps=1000000000")
 set_source_files_properties(app/test_mandelbrot.cpp PROPERTIES COMPILE_FLAGS ${EXTRA_COMPILE_FLAGS})
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
 
