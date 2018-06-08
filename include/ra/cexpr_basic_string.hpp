@@ -41,10 +41,7 @@ namespace cexpr {
 
       // Creates an empty string (i.e., a string containing no
       // characters).
-      constexpr cexpr_basic_string ()
-      {
-        str[0] = value_type(0); 
-      }
+      constexpr cexpr_basic_string () : str{value_type(0)}, current_size(0) {};
 
       // Explicitly default some special members.
       constexpr cexpr_basic_string (const cexpr_basic_string &) =
@@ -355,7 +352,7 @@ namespace cexpr {
         }  
       }
 
-      if(end != NULL)
+      if(end != nullptr)
       {
         *end = &buffer[count];
       }
