@@ -136,7 +136,6 @@ namespace biquad {
 
       return biquad_filter_coefs<Real>(a0/b0,a1/b0,a2/b0,b0/b0,b1/b0,b2/b0); 
     }
-    //TODO: BOYANG
     // Returns the coefficients for a biquad low-frequency shelving
     // cut filter with normalized cutoff frequency f and gain-control
     // parameter a, where f in [0,1] and a >= 0.
@@ -159,7 +158,6 @@ namespace biquad {
 
       return biquad_filter_coefs<Real>(a0/b0,a1/b0,a2/b0,b0/b0,b1/b0,b2/b0);
     }
-    //TODO: ask Boyang
 }
 }
 #endif
