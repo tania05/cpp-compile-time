@@ -48,7 +48,6 @@ int main()
 
 
     // pushback
-
     cexpr_basic_string<char, 3> pb;
     pb.push_back('a');
     assert(strcmp(pb.data(), "a") == 0);

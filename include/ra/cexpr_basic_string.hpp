@@ -88,7 +88,7 @@ namespace cexpr {
         // size_type size_s = 0;
         while(first != last)
         {
-          if(current_size > M)
+          if(current_size >= M)
           {
             // std::cout << *first << std::endl;
             // std::cout << size_s << std::endl;
@@ -310,40 +310,55 @@ namespace cexpr {
   constexpr std::size_t to_string ( std::size_t n , char* buffer , std::size_t size , char** end )
     {
       std::size_t i = 0;
+      std::size_t count = 0;      
       char *p = buffer;
       std::size_t number = n;
-
-      //find out the place to start putting the characters
-      while(n != 0)
+      
+      if(size < 2)
       {
-        if( i >= size)
-        {
           throw std::runtime_error("Buffer does not hold sufficent size to convert int to string.");
-        }
-        n /= 10;
-        ++i;
-        // std::cout << i << std::endl;
+        
       }
 
-      p[i] = '\0';
-      
-      //38
-      while(i > 0)
+      if(n == 0)
       {
-        --i;        
-        // std::cout << i << std::endl;        
-        // get the remainder
-        std::size_t r = number%10;
-        number /= 10;
-        // or add 48 since '0' is 48 is ASCII
-        p[i] = r + '0';
+        *buffer = '0';
+        *(++buffer) = '\0';
+        count = 1;
+      }
+      else{
+        //find out the place to start putting the characters
+        while(n != 0)
+        {
+          if( i >= size-1)
+          {
+            throw std::runtime_error("Buffer does not hold sufficent size to convert int to string.");
+          }
+          n /= 10;
+          ++i;
+          ++count;
+        }
+
+        p[i] = '\0';
+        
+        //38
+        while(i > 0)
+        {
+          --i;        
+          // std::cout << i << std::endl;        
+          // get the remainder
+          std::size_t r = number%10;
+          number /= 10;
+          // or add 48 since '0' is 48 is ASCII
+          p[i] = r + '0';
+        }  
       }
 
       if(end != nullptr)
       {
-        *end = &buffer[i];
+        *end = &buffer[count];
       }
-      return i;
+      return count;
     }
 }
 }

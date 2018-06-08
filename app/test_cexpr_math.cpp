@@ -108,9 +108,13 @@ int main()
     //sqrt
     // std::cout << sqrt<float>(0.65793) << std::endl;
     // std::cout << std::sqrt((float)0.65793) << std::endl;
-    // std::cout << sqrt<float>(0.65793) - std::sqrt((float)0.65793) << std::endl;
+    std::cout << sqrt<float>(3.402823E+38)<< std::endl;
+    static_assert(sqrt<float>(3.402823E+4) != 0, "square root fails");
     static_assert(sqrt<float>(0.65793) - (float)0.811129 <= epsln, "square root fails");
     static_assert(sqrt<float>(0) == (float)0, "square root of 0 fails");
+    static_assert(sqrt<float>(-0) == (float)0, "square root of 0 fails");
+    // static_assert(sqrt<float>(-1) == (float)0, "square root of 0 fails");
+
 // std::cout<<"latest"<<std::endl;
 
     //check mod
