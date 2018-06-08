@@ -44,13 +44,13 @@ namespace cexpr_math {
   template <class T >
   constexpr T mod (T x , T y )
   {
-    if(y == 0)
+    if(y == T(0))
     {
       throw std::overflow_error("Value of y is 0");
     }
     // std::cout << x - ((int)(x/y)) * y << std::endl;
     // throw std::runtime_error("tandom");
-    return x - ((int)(x/y)) * y;
+    return x - ((long long)(x/y)) * y;
   }
 
   // Returns the sine of x.
@@ -59,22 +59,15 @@ namespace cexpr_math {
   // The type T is a floating-point type.
   template <class T >
   constexpr T sin (T x )
-  {
-    x = mod(x, (T)2*pi<T>);
-    // std::cout << x << std::endl;    
-    if(x <= (T)0.000001)
+  {      
+    if(abs<T>(x) <= 0.000001)
     {
-      // std::cout << " youa are here \n"; 
       return x;
     }
-    // std::cout << "Youa are here" << std::endl;
-    // T f = 3*(sin(x/3));
-    // T s = 4*cube(sin(x/3));
-    
-    return (T)( (T)3*(sin(x/(T)3)) ) - ((T)4*cube(sin(x/ (T)3) ))  ;
-    // std::cout << f << std::endl;
-    // std::cout << s << std::endl;
-    // return f + s;
+
+    x = mod<T>(x, 2*pi<T>);          
+    T sx3 = sin(x/3);
+    return ( 3*(sx3)  - 4*cube(sx3) );    
   }
 
   // Returns the cosine of x.
@@ -102,7 +95,7 @@ namespace cexpr_math {
       throw std::overflow_error("cos x is 0");
     }  
     //TODO test 
-    return (x < 0) ? (-sin(-x)/cos(x)) : sin(x)/cos(x);   
+    return sin(x)/cos(x);   
   }
 
   // Returns the square root of x.

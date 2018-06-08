@@ -16,6 +16,4 @@ int main ()
         file.open("mandelbrot.pnm");
         file << content;
         file.close();
-        
-         
 }
