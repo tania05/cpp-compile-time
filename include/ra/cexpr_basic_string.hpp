@@ -299,7 +299,7 @@ namespace cexpr {
       }
     
     private:
-      value_type str[M+1] = {0};
+      value_type str[M+1] = {value_type(0)};
       size_type current_size = 0;
   };
   
@@ -326,7 +326,8 @@ namespace cexpr {
         *(++buffer) = '\0';
         count = 1;
       }
-      else{
+      else
+      {
         //find out the place to start putting the characters
         while(n != 0)
         {
@@ -354,7 +355,7 @@ namespace cexpr {
         }  
       }
 
-      if(end != nullptr)
+      if(end != NULL)
       {
         *end = &buffer[count];
       }
