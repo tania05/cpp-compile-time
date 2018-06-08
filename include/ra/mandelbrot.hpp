@@ -50,9 +50,9 @@ namespace fractal {
     }  
     
     template <std :: size_t W , std :: size_t H >    
-    constexpr ra::cexpr::cexpr_string<(W)*H+H+W> mandelbrot_begin()
+    constexpr ra::cexpr::cexpr_string<(W+1)*(H+2)+1> mandelbrot_begin()
     {
-        ra::cexpr::cexpr_string<(W)*H+H+W> str;
+        ra::cexpr::cexpr_string<(W+1)*(H+2)+1> str;
         str.push_back('P');
         str.push_back('1');
         str.append(" ");
@@ -66,9 +66,9 @@ namespace fractal {
         str.push_back('\n');
         
 
-        for(std::size_t i = 0; i< W; ++i)
+        for(std::size_t i = 0; i< H; ++i)
         {
-            for(std::size_t j = 0 ; j < H; ++j)
+            for(std::size_t j = 0 ; j < W; ++j)
             {
                 auto c = lambda(W,H,j,i);
                 if(is_member(c))

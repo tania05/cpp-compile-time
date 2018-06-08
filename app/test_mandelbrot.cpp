@@ -7,7 +7,7 @@ int main ()
 {
     using namespace std;
    // Force the image (in PNM format) to be computed at compile time.
-       constexpr auto s = ra::fractal::mandelbrot <256, 256>;
+       constexpr auto s = ra::fractal::mandelbrot <2, 2>;
 
        // Output the image (in PNM format).
        auto content = s.begin();
@@ -17,3 +17,4 @@ int main ()
         file << content;
         file.close();
 }
+
